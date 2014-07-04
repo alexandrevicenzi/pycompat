@@ -103,7 +103,7 @@ pycompat.minor
 pycompat.micro
 pycompat.release
 
-# Python version
+# Python info
 python.is1xx
 python.is10x
 python.is15x
@@ -134,7 +134,7 @@ python.is_gt(2, 7, 5)
 python.is_lt(2, 7, 5)
 python.is_eq(2, 7, 5)
 
-# System version
+# System info
 system.is_windows
 system.is_cygwin
 system.is_linux
