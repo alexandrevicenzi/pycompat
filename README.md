@@ -71,5 +71,5 @@ sys.is_linux2
 
 ```python
 sys.is_linux3
->>> True
+>>> False
 ```
