@@ -33,8 +33,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
-import sys
+import os
 import platform
+import sys
 
 WIN_32   = 'win32'
 CYGWIN   = 'cygwin'
@@ -103,6 +104,7 @@ class _PythonVersion(_ImmutableObject):
             self.is_ironpython = _imp == IRONPYTHON
             self.is_jython = _imp == JYTHON
             self.is_cpython = _imp == CPYTHON
+            self.is_64bits = sys.maxsize > 2**32
         else:
             _ver = sys.version.lower()
 
@@ -110,6 +112,9 @@ class _PythonVersion(_ImmutableObject):
             self.is_ironpython = 'iron' in _ver
             self.is_jython = 'jython' in _ver
             self.is_cpython = (not self.is_pypy and not self.is_ironpython and not self.is_jython)
+            self.is_64bits = sys.maxint > 2**32
+
+        self.is_32bits = not self.is_64bits
 
     def is_gt(self, major, minor=0, micro=0):
         return _v > (major, minor, micro)
@@ -131,8 +136,8 @@ class _SystemVersion(_ImmutableObject):
         self.is_linux2  = _plat == LINUX2
         self.is_linux3  = _plat == LINUX3
         self.is_mac_os  = _plat == MAC_OS_X
-
-        self.is_64bits = sys.maxsize > 2**32
+        self.is_64bits = 'PROCESSOR_ARCHITEW6432' in os.environ
+        self.is_32bits = not self.is_64bits
 
 python = _PythonVersion()
 system = _SystemVersion()
