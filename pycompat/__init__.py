@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# pycompat - Library to check Python and System version in a easy way
+# pycompat - Library to check Python and System version in a easy way.
 #
 
 __author__ = 'Alexandre Vicenzi'
@@ -34,7 +34,6 @@ SOFTWARE.
 '''
 
 import os
-import platform
 import sys
 
 WIN_32   = 'win32'
@@ -51,12 +50,26 @@ IRONPYTHON = 'IronPython'
 JYTHON     = 'Jython'
 PYPY       = 'PyPy'
 
-_v = sys.version_info
+try:
+    # Python 2.x+
+    _v = sys.version_info
+except Exception:
+    major = int(sys.version[0])
+    minor = int(sys.version[2])
+    micro = int(sys.version[4])
+    _v = (major, minor, micro, '')
 
 major = _v[0]
 minor = _v[1]
 micro = _v[2]
 release = _v[3]
+
+if major < 2:
+    import string
+    import math
+    MAX_SIZE = math.pow(2, 32)
+else:
+    MAX_SIZE = 2**32
 
 class _ImmutableObject:
 
@@ -98,21 +111,35 @@ class _PythonVersion(_ImmutableObject):
 
         if _v > (2, 6):
             # Only 2.6+
+            import platform
             _imp = platform.python_implementation()
 
             self.is_pypy = _imp == PYPY
             self.is_ironpython = _imp == IRONPYTHON
             self.is_jython = _imp == JYTHON
             self.is_cpython = _imp == CPYTHON
-            self.is_64bits = sys.maxsize > 2**32
+            self.is_64bits = sys.maxsize > MAX_SIZE
         else:
-            _ver = sys.version.lower()
+            if major >= 2:
+                _ver = sys.version.lower()
+            else:
+                _ver = string.lower(sys.version)
 
-            self.is_pypy = 'pypy' in _ver
-            self.is_ironpython = 'iron' in _ver
-            self.is_jython = 'jython' in _ver
+            if _v > (2, 3):
+                self.is_pypy = 'pypy' in _ver
+                self.is_ironpython = 'iron' in _ver
+                self.is_jython = 'jython' in _ver
+            elif major >= 2:
+                self.is_pypy = _ver.find('pypy') >= 0
+                self.is_ironpython = _ver.find('iron') >= 0
+                self.is_jython = _ver.find('jython') >= 0
+            else:
+                self.is_pypy = string.find(_ver, 'pypy') >= 0
+                self.is_ironpython = string.find(_ver, 'iron') >= 0
+                self.is_jython = string.find(_ver, 'jython') >= 0
+
             self.is_cpython = (not self.is_pypy and not self.is_ironpython and not self.is_jython)
-            self.is_64bits = sys.maxint > 2**32
+            self.is_64bits = sys.maxint > MAX_SIZE
 
         self.is_32bits = not self.is_64bits
 
@@ -128,15 +155,25 @@ class _PythonVersion(_ImmutableObject):
 class _SystemVersion(_ImmutableObject):
 
     def __init__(self):
-        _plat = sys.platform.lower()
+        if major >= 2:
+            _plat = sys.platform.lower()
+        else:
+            _plat = string.lower(sys.platform)
 
         self.is_windows = _plat == WIN_32
         self.is_cygwin  = _plat == CYGWIN
-        self.is_linux   = _plat.startswith(LINUX)
+
+        if major >= 2:
+            self.is_linux   = _plat.startswith(LINUX)
+            self.is_64bits = 'PROCESSOR_ARCHITEW6432' in os.environ
+        else:
+            self.is_linux   = string.find(_plat, LINUX) == 0
+            self.is_64bits = string.find(str(os.environ), 'PROCESSOR_ARCHITEW6432') >= 0
+
         self.is_linux2  = _plat == LINUX2
         self.is_linux3  = _plat == LINUX3
         self.is_mac_os  = _plat == MAC_OS_X
-        self.is_64bits = 'PROCESSOR_ARCHITEW6432' in os.environ
+
         self.is_32bits = not self.is_64bits
 
 python = _PythonVersion()
