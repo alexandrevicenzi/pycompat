@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# 
+#
 # pycompat - Library to check Python and System version in a easy way
 #
 
@@ -95,15 +95,15 @@ class _PythonVersion(_ImmutableObject):
         self.is34x = self.is3xx and minor == 4
         self.is35x = self.is3xx and minor == 5
 
-        try:
+        if _v > (2, 6):
             # Only 2.6+
             _imp = platform.python_implementation()
 
             self.is_pypy = _imp == PYPY
             self.is_ironpython = _imp == IRONPYTHON
             self.is_jython = _imp == JYTHON
-            self.is_cpython = _imp == CPython
-        except Exception:
+            self.is_cpython = _imp == CPYTHON
+        else:
             _ver = sys.version.lower()
 
             self.is_pypy = 'pypy' in _ver
@@ -112,10 +112,10 @@ class _PythonVersion(_ImmutableObject):
             self.is_cpython = (not self.is_pypy and not self.is_ironpython and not self.is_jython)
 
     def is_gt(self, major, minor=0, micro=0):
-        return (major, minor, micro) > _v
+        return _v > (major, minor, micro)
 
     def is_lt(self, major, minor=0, micro=0):
-        return (major, minor, micro) < _v
+        return _v < (major, minor, micro)
 
     def is_eq(self, major, minor=0, micro=0):
         return (major, minor, micro) == _v
