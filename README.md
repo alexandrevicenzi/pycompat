@@ -3,6 +3,9 @@ pycompat [![Build Status](https://travis-ci.org/alexandrevicenzi/pycompat.svg?br
 
 Library to check Python and System version in a easy way
 
+### Requirement
+
+- Python 2.3 or above
 
 ### How to use?
 
