@@ -13,7 +13,7 @@ class TestPyCompat(unittest.TestCase):
         pass
 
     def test_python_is_64bits(self):
-        self.assertEqual(python.is_64bits, sys.maxsize > 2**32)
+        self.assertEqual(python.is_64bits, not python.is_32bits)
 
     # Is failing on Travis-CI Python 3+
     #'def test_immutability(self):
