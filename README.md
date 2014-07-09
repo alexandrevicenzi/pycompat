@@ -152,12 +152,3 @@ system.is_64bits
 ### Want more?
 
 Feel free to request more functions or contribute in this project.
-
-
-### Support my projects
-
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/alexandrevicenzi/)
-
-[![Support via PayPal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KZCMH3N74KKFN&lc=US&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
-
-[![Support via Pledgie](https://pledgie.com/campaigns/25974.png?skin_name=chrome)](https://pledgie.com/campaigns/25974)
