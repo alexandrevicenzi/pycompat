@@ -162,6 +162,13 @@ system.is_32bits
 system.is_64bits
 ```
 
+### Changelog
+
+#### 0.2
+
+- Better approach for `is_lt`, `is_gt` and `is_eq`.
+- Add release info.
+
 ### Want more?
 
 Feel free to request more functions or contribute in this project.
