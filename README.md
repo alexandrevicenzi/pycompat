@@ -167,7 +167,7 @@ system.is_64bits
 #### 0.2
 
 - Better approach for `is_lt`, `is_gt` and `is_eq`.
-- Add release info.
+- Add Python release info.
 
 ### Want more?
 
