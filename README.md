@@ -128,15 +128,23 @@ python.is32x
 python.is33x
 python.is34x
 python.is35x
+
 python.is_pypy
 python.is_ironpython
 python.is_jython
 python.is_cpython
+
 python.is_32bits
 python.is_64bits
+
 python.is_gt(2, 7, 5)
 python.is_lt(2, 7, 5)
 python.is_eq(2, 7, 5)
+
+python.is_alpha
+python.is_beta
+python.is_candidate
+python.is_final
 
 # System info
 system.is_windows
@@ -145,6 +153,7 @@ system.is_linux
 system.is_linux2
 system.is_linux3
 system.is_mac_os
+
 system.is_32bits
 system.is_64bits
 ```
