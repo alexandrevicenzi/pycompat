@@ -6,7 +6,7 @@
 #
 
 __author__ = 'Alexandre Vicenzi'
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 __license__ = 'MIT'
 
 '''
@@ -83,7 +83,10 @@ class _ImmutableObject:
 
     def __setattr__(self, name, value):
         if self.__dict__.get(name):
-            raise AttributeError('Constant attribute "%s" cannot be reassigned.' % name)
+            raise.is_alpha
+.is_beta
+.is_candidate
+.is_final AttributeError('Constant attribute "%s" cannot be reassigned.' % name)
         else:
             self.__dict__[name] = value
 
