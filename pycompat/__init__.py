@@ -83,10 +83,7 @@ class _ImmutableObject:
 
     def __setattr__(self, name, value):
         if self.__dict__.get(name):
-            raise.is_alpha
-.is_beta
-.is_candidate
-.is_final AttributeError('Constant attribute "%s" cannot be reassigned.' % name)
+            raise AttributeError('Constant attribute "%s" cannot be reassigned.' % name)
         else:
             self.__dict__[name] = value
 
