@@ -50,19 +50,27 @@ IRONPYTHON = 'IronPython'
 JYTHON     = 'Jython'
 PYPY       = 'PyPy'
 
+class _VersionInfo(object):
+
+    def __init__(self, major, minor, micro, release):
+        self.major = major
+        self.minor = minor
+        self.micro = micro
+        self.release = release
+        self.tuple = (major, minor, micro, release)
+
 try:
     # Python 2.x+
-    _v = sys.version_info
+    vi = sys.version_info
+    _version = _VersionInfo(vi[0], vi[1], vi[2], vi[3])
+    del vi
 except Exception:
-    major = int(sys.version[0])
-    minor = int(sys.version[2])
-    micro = int(sys.version[4])
-    _v = (major, minor, micro, '')
+    _version = _VersionInfo(int(sys.version[0]), int(sys.version[2]), int(sys.version[4]), 'final')
 
-major = _v[0]
-minor = _v[1]
-micro = _v[2]
-release = _v[3]
+major = _version.major
+minor = _version.minor
+micro = _version.micro
+release = _version.release
 
 if major < 2:
     import string
@@ -109,7 +117,7 @@ class _PythonVersion(_ImmutableObject):
         self.is34x = self.is3xx and minor == 4
         self.is35x = self.is3xx and minor == 5
 
-        if _v > (2, 6):
+        if _version.tuple > (2, 6):
             # Only 2.6+
             import platform
             _imp = platform.python_implementation()
@@ -125,7 +133,7 @@ class _PythonVersion(_ImmutableObject):
             else:
                 _ver = string.lower(sys.version)
 
-            if _v > (2, 3):
+            if _version.tuple > (2, 3):
                 self.is_pypy = 'pypy' in _ver
                 self.is_ironpython = 'iron' in _ver
                 self.is_jython = 'jython' in _ver
@@ -143,14 +151,46 @@ class _PythonVersion(_ImmutableObject):
 
         self.is_32bits = not self.is_64bits
 
-    def is_gt(self, major, minor=0, micro=0):
-        return _v > (major, minor, micro)
+        self.is_alpha = release == 'alpha'
+        self.is_beta = release == 'beta'
+        self.is_candidate = release == 'candidate'
+        self.is_final = release == 'final'
 
-    def is_lt(self, major, minor=0, micro=0):
-        return _v < (major, minor, micro)
+    def is_gt(self, majorv, minorv=None, microv=None):
+        if major < majorv:
+            return False
 
-    def is_eq(self, major, minor=0, micro=0):
-        return (major, minor, micro) == _v
+        if (not minorv is None) and minor < minorv:
+            return False
+
+        if (not microv is None) and micro < microv:
+            return False
+
+        return True
+
+    def is_lt(self, majorv, minorv=None, microv=None):
+        if major > majorv:
+            return False
+
+        if (not minorv is None) and minor > minorv:
+            return False
+
+        if (not microv is None) and micro > microv:
+            return False
+
+        return True
+
+    def is_eq(self, majorv, minorv=None, microv=None):
+        if major != majorv:
+            return False
+
+        if (not minorv is None) and minor != minorv:
+            return False
+
+        if (not microv is None) and micro != microv:
+            return False
+
+        return True
 
 class _SystemVersion(_ImmutableObject):
 
