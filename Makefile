@@ -5,6 +5,8 @@ build:
 
 dist:
 	python setup.py bdist
+	python setup.py sdist
+	python setup.py bdist_egg
 
 install:
 	python setup.py install -f
