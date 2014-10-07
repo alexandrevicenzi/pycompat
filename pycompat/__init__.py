@@ -192,6 +192,8 @@ class _PythonVersion(_ImmutableObject):
 
         return True
 
+python = _PythonVersion()
+
 class _SystemVersion(_ImmutableObject):
 
     def __init__(self):
@@ -203,12 +205,22 @@ class _SystemVersion(_ImmutableObject):
         self.is_windows = _plat == WIN_32
         self.is_cygwin  = _plat == CYGWIN
 
+        x64 = ['AMD64', 'x86_64', 'IA64']
+
         if major >= 2:
-            self.is_linux   = _plat.startswith(LINUX)
-            self.is_64bits = 'PROCESSOR_ARCHITEW6432' in os.environ
+            self.is_linux  = _plat.startswith(LINUX)
+            self.is_64bits = python.is_64bits or \
+                             os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
+                             os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
+                             os.environ.get('CPU', '') in x64 or \
+                             os.environ.get('MACHTYPE', '').split('-')[0] in x64
         else:
-            self.is_linux   = string.find(_plat, LINUX) == 0
-            self.is_64bits = string.find(str(os.environ), 'PROCESSOR_ARCHITEW6432') >= 0
+            self.is_linux  = string.find(_plat, LINUX) == 0
+            self.is_64bits = python.is_64bits or \
+                             os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
+                             os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
+                             os.environ.get('CPU', '') in x64 or \
+                             string.split(os.environ.get('MACHTYPE', ''), '-')[0] in x64
 
         self.is_linux2  = _plat == LINUX2
         self.is_linux3  = _plat == LINUX3
@@ -216,5 +228,4 @@ class _SystemVersion(_ImmutableObject):
 
         self.is_32bits = not self.is_64bits
 
-python = _PythonVersion()
 system = _SystemVersion()
