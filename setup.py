@@ -15,7 +15,7 @@ with open('README.rst') as f:
 
 setup(
     name='pycompat',
-    version='0.2.0',
+    version='0.2.1',
     author='Alexandre Vicenzi',
     author_email='vicenzi.alexandre@gmail.com',
     maintainer='Alexandre Vicenzi',

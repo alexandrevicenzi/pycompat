@@ -167,10 +167,26 @@ List of all attributes/methods
     system.is_32bits
     system.is_64bits
 
+Changelog
+~~~~~~~~~
+
+0.2.1
+^^^^^
+
+-  Fix `#3`_.
+
+0.2
+^^^
+
+-  Better approach for ``is_lt``, ``is_gt`` and ``is_eq``.
+-  Add Python release info.
+
 Want more?
 ~~~~~~~~~~
 
 Feel free to request more functions or contribute in this project.
+
+.. _#3: https://github.com/alexandrevicenzi/pycompat/issues/3
 
 .. |Build Status| image:: https://travis-ci.org/alexandrevicenzi/pycompat.svg?branch=master
    :target: https://travis-ci.org/alexandrevicenzi/pycompat

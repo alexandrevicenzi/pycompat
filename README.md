@@ -164,6 +164,10 @@ system.is_64bits
 
 ### Changelog
 
+#### 0.2.1
+
+- Fix [#3](https://github.com/alexandrevicenzi/pycompat/issues/3).
+
 #### 0.2
 
 - Better approach for `is_lt`, `is_gt` and `is_eq`.
