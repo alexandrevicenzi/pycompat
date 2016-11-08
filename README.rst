@@ -96,6 +96,9 @@ List of all attributes/methods
 
 .. code:: python
 
+    import pycompat
+    from pycompat import python, system
+
     # Constants
     pycompat.WIN_32
     pycompat.CYGWIN
@@ -138,6 +141,8 @@ List of all attributes/methods
     python.is33x
     python.is34x
     python.is35x
+    python.is36x
+    python.is37x
 
     python.is_pypy
     python.is_ironpython

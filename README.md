@@ -90,6 +90,9 @@ sys.is_linux3
 ### List of all attributes/methods
 
 ```python
+import pycompat
+from pycompat import python, system
+
 # Constants
 pycompat.WIN_32
 pycompat.CYGWIN
@@ -132,6 +135,8 @@ python.is32x
 python.is33x
 python.is34x
 python.is35x
+python.is36x
+python.is37x
 
 python.is_pypy
 python.is_ironpython
