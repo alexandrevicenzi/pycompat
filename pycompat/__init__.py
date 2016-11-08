@@ -36,19 +36,20 @@ SOFTWARE.
 import os
 import sys
 
-WIN_32   = 'win32'
-CYGWIN   = 'cygwin'
-LINUX    = 'linux'
-LINUX2   = 'linux2'
-LINUX3   = 'linux3'
+WIN_32 = 'win32'
+CYGWIN = 'cygwin'
+LINUX = 'linux'
+LINUX2 = 'linux2'
+LINUX3 = 'linux3'
 MAC_OS_X = 'darwin'
-OS2      = 'os2'
-OS2_EMX  = 'os2emx'
+OS2 = 'os2'
+OS2_EMX = 'os2emx'
 
-CPYTHON    = 'CPython'
+CPYTHON = 'CPython'
 IRONPYTHON = 'IronPython'
-JYTHON     = 'Jython'
-PYPY       = 'PyPy'
+JYTHON = 'Jython'
+PYPY = 'PyPy'
+
 
 class _VersionInfo(object):
 
@@ -79,13 +80,15 @@ if major < 2:
 else:
     MAX_SIZE = 2**32
 
+
 class _ImmutableObject:
 
     def __setattr__(self, name, value):
-        if self.__dict__.get(name):
+        if name in self.__dict__:
             raise AttributeError('Constant attribute "%s" cannot be reassigned.' % name)
         else:
             self.__dict__[name] = value
+
 
 class _PythonVersion(_ImmutableObject):
 
@@ -116,6 +119,8 @@ class _PythonVersion(_ImmutableObject):
         self.is33x = self.is3xx and minor == 3
         self.is34x = self.is3xx and minor == 4
         self.is35x = self.is3xx and minor == 5
+        self.is36x = self.is3xx and minor == 6
+        self.is37x = self.is3xx and minor == 7
 
         if _version.tuple > (2, 6):
             # Only 2.6+
@@ -160,10 +165,10 @@ class _PythonVersion(_ImmutableObject):
         if major < majorv:
             return False
 
-        if (not minorv is None) and minor < minorv:
+        if minorv is not None and minor < minorv:
             return False
 
-        if (not microv is None) and micro < microv:
+        if microv is not None and micro < microv:
             return False
 
         return True
@@ -172,10 +177,10 @@ class _PythonVersion(_ImmutableObject):
         if major > majorv:
             return False
 
-        if (not minorv is None) and minor > minorv:
+        if minorv is not None and minor > minorv:
             return False
 
-        if (not microv is None) and micro > microv:
+        if microv is not None and micro > microv:
             return False
 
         return True
@@ -184,15 +189,16 @@ class _PythonVersion(_ImmutableObject):
         if major != majorv:
             return False
 
-        if (not minorv is None) and minor != minorv:
+        if minorv is not None and minor != minorv:
             return False
 
-        if (not microv is None) and micro != microv:
+        if microv is not None and micro != microv:
             return False
 
         return True
 
 python = _PythonVersion()
+
 
 class _SystemVersion(_ImmutableObject):
 
@@ -203,28 +209,28 @@ class _SystemVersion(_ImmutableObject):
             _plat = string.lower(sys.platform)
 
         self.is_windows = _plat == WIN_32
-        self.is_cygwin  = _plat == CYGWIN
+        self.is_cygwin = _plat == CYGWIN
 
         x64 = ['AMD64', 'x86_64', 'IA64']
 
         if major >= 2:
-            self.is_linux  = _plat.startswith(LINUX)
+            self.is_linux = _plat.startswith(LINUX)
             self.is_64bits = python.is_64bits or \
-                             os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
-                             os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
-                             os.environ.get('CPU', '') in x64 or \
-                             os.environ.get('MACHTYPE', '').split('-')[0] in x64
+                os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
+                os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
+                os.environ.get('CPU', '') in x64 or \
+                os.environ.get('MACHTYPE', '').split('-')[0] in x64
         else:
-            self.is_linux  = string.find(_plat, LINUX) == 0
+            self.is_linux = string.find(_plat, LINUX) == 0
             self.is_64bits = python.is_64bits or \
-                             os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
-                             os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
-                             os.environ.get('CPU', '') in x64 or \
-                             string.split(os.environ.get('MACHTYPE', ''), '-')[0] in x64
+                os.environ.get('PROCESSOR_ARCHITECTURE', '') in x64 or \
+                os.environ.get('PROCESSOR_ARCHITEW6432', '') in x64 or \
+                os.environ.get('CPU', '') in x64 or \
+                string.split(os.environ.get('MACHTYPE', ''), '-')[0] in x64
 
-        self.is_linux2  = _plat == LINUX2
-        self.is_linux3  = _plat == LINUX3
-        self.is_mac_os  = _plat == MAC_OS_X
+        self.is_linux2 = _plat == LINUX2
+        self.is_linux3 = _plat == LINUX3
+        self.is_mac_os = _plat == MAC_OS_X
 
         self.is_32bits = not self.is_64bits
 
