@@ -190,5 +190,5 @@ Feel free to request more functions or contribute in this project.
 
 .. |Build Status| image:: https://travis-ci.org/alexandrevicenzi/pycompat.svg?branch=master
    :target: https://travis-ci.org/alexandrevicenzi/pycompat
-.. |Version| image:: https://pypip.in/version/pycompat/badge.png
+.. |Version| image:: https://img.shields.io/pypi/v/pycompat.svg
    :target: https://pypi.python.org/pypi/pycompat

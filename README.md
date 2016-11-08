@@ -1,4 +1,4 @@
-pycompat [![Build Status](https://travis-ci.org/alexandrevicenzi/pycompat.svg?branch=master)](https://travis-ci.org/alexandrevicenzi/pycompat) ![Build](https://codeship.com/projects/3a276a20-cff5-0132-fff1-7637bc41f5cd/status?branch=master) [![Version](https://pypip.in/version/pycompat/badge.png)](https://pypi.python.org/pypi/pycompat)
+pycompat [![Build Status](https://travis-ci.org/alexandrevicenzi/pycompat.svg?branch=master)](https://travis-ci.org/alexandrevicenzi/pycompat) ![Build](https://codeship.com/projects/3a276a20-cff5-0132-fff1-7637bc41f5cd/status?branch=master) [![Version](https://img.shields.io/pypi/v/pycompat.svg)](https://pypi.python.org/pypi/pycompat)
 ========
 
 Library to check Python and System version in a easy way
