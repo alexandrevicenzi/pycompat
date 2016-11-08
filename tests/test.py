@@ -12,10 +12,8 @@ from pycompat import system
 import sys
 import unittest
 
-class TestPyCompat(unittest.TestCase):
 
-    def setUp(self):
-        pass
+class TestPyCompat(unittest.TestCase):
 
     def test_python_is_64bits(self):
         self.assertEqual(py.is_64bits, not py.is_32bits)
@@ -23,15 +21,9 @@ class TestPyCompat(unittest.TestCase):
     def test_is_cpython(self):
         self.assertEqual(py.is_cpython, not py.is_pypy)
 
-    # Is failing on Travis-CI Python 3+
-    #'def test_immutability(self):
-    #'    try:
-    #'        py.is2xx = 1
-    #'        self.assertTrue(False)
-    #'    except AttributeError:
-    #'        self.assertTrue(True)
-    #'    else:
-    #        self.assertTrue(False)
+    def test_immutability(self):
+        with self.assertRaises(AttributeError):
+            py.is2xx = 1
 
     def test_python_is1xx(self):
         self.assertFalse(py.is1xx)
