@@ -169,6 +169,11 @@ system.is_64bits
 
 ### Changelog
 
+#### 0.3.0
+
+- Fix [#5](https://github.com/alexandrevicenzi/pycompat/issues/5).
+- Add checks for Python 3.6 and 3.7.
+
 #### 0.2.1
 
 - Fix [#3](https://github.com/alexandrevicenzi/pycompat/issues/3).

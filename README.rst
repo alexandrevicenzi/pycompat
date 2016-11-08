@@ -175,6 +175,12 @@ List of all attributes/methods
 Changelog
 ~~~~~~~~~
 
+0.3.0
+^^^^^
+
+-  Fix `#5`_.
+-  Add checks for Python 3.6 and 3.7.
+
 0.2.1
 ^^^^^
 
@@ -192,6 +198,7 @@ Want more?
 Feel free to request more functions or contribute in this project.
 
 .. _#3: https://github.com/alexandrevicenzi/pycompat/issues/3
+.. _#5: https://github.com/alexandrevicenzi/pycompat/issues/5
 
 .. |Build Status| image:: https://travis-ci.org/alexandrevicenzi/pycompat.svg?branch=master
    :target: https://travis-ci.org/alexandrevicenzi/pycompat
