@@ -3,6 +3,11 @@ pycompat [![Build Status](https://travis-ci.org/alexandrevicenzi/pycompat.svg?br
 
 Library to check Python and System version in a easy way
 
+### Note
+
+This repository is archived because you should use Python 3 only.
+There's no reason to write code that runs on Python 2 and 3 anymore.
+
 ### Compatibility
 
 Works with all major versions of Python.
